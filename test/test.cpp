@@ -1,16 +1,16 @@
 #include <QCoreApplication>
 
-#include "include/qsstext.h"
+#include "include/qssdocument.h"
 
 #define RESULTV(A, B, V) LOG(A << " should be: " << #V << " | Test pass status: " << (B == V));
 #define RESULTSTR(A, B, V) LOG(A << " should be: " << V << " | Test pass status: " << (B == V));
  
 void TestQSSParts()
 {
-    LOG("Basic QSS Parsing...");
+    LOG("\n\nBasic QSS Parsing...");
     QString test = "select#id.class1.class2[param1=\"val1\"][param2=\"val2\"]::sub-ctrl:psuedo "
         "{ prop1: val1 val2; prop2: val3 val4; }";
-    QSSFragment fragment{ test };
+    qss::Fragment fragment{ test };
     const auto& selector = fragment.selector().front();
     const auto& block = fragment.block();
     
@@ -26,9 +26,9 @@ void TestQSSParts()
 
 void TestQSSText()
 {
-    LOG("Parsing 3 block of QSS...");
+    LOG("\n\nParsing 3 block of QSS...");
     QString test = "aaa, xxx { bb: cc; } dd{ aa: \"{}\"; cc : dd; }";
-    QSSText qss{test};
+    qss::Document qss{test};
     qss += "xxx { yy: zz; }";
 
     RESULTV("Total Fragments", qss.totalFragments(), 3);
@@ -51,19 +51,19 @@ void TestQSSText()
 
 void TestQSSParse()
 {
-    LOG("Parsing complex QSS...");
+    LOG("\n\nComparing parsed and generated QSS...");
     QString test1 = "#parent name[prop=\"val ff \"][aaa=\"bb b\"]::sub-control:hover  ~ QLabel#child { "
             "   background-color: white;"
             "   border: 1px solid black;"
             "}";
 
-    QSSFragment fragment{test1};
+    qss::Fragment fragment{test1};
     fragment.add("color", "red").enableParam("background-color", false);
 
-    QSSFragment manual;
+    qss::Fragment manual;
     manual.selector()
-            .append("#parent", QSSSelectorFragment::PARENT)
-            .descendant(QSSSelectorFragment().select("name").on("prop", "val ff ").on("aaa", "bb b").sub("sub-control").when("hover"))
+            .append("#parent", qss::SelectorElement::PARENT)
+            .descendant(qss::SelectorElement().select("name").on("prop", "val ff ").on("aaa", "bb b").sub("sub-control").when("hover"))
             .sibling("QLabel#child");
 
     manual.add("border", "1px solid black");
@@ -73,6 +73,7 @@ void TestQSSParse()
 
 int main(int argc, char *argv[])
 {
+    using qss::operator<<;
     QCoreApplication a(argc, argv);
     LOG(std::boolalpha);
 
@@ -82,12 +83,10 @@ int main(int argc, char *argv[])
         TestQSSText();
         TestQSSParse();
     }
-    catch (const QSSException& except)
+    catch (const qss::Exception& except)
     {
         std::cout << except.what();
     }
 
     return a.exec();
 }
-
-

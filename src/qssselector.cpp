@@ -1,73 +1,73 @@
 #include "../include/qssselector.h"
 
-QSSSelector::QSSSelector(const QString & str)
+qss::Selector::Selector(const QString & str)
 {
     parse(str);
 }
 
-QSSSelector &QSSSelector::operator=(const QSSSelector &selector)
+qss::Selector& qss::Selector::operator=(const Selector &selector)
 {
     m_fragments = selector.m_fragments;
     return *this;
 }
 
-QSSSelector &QSSSelector::child(const QSSSelectorFragment &fragment)
+qss::Selector& qss::Selector::child(const SelectorElement &fragment)
 {
-    return append(fragment, QSSSelectorFragment::CHILD);
+    return append(fragment, SelectorElement::CHILD);
 }
 
-QSSSelector &QSSSelector::child(const QString &fragment)
+qss::Selector& qss::Selector::child(const QString &fragment)
 {
-    return append(fragment, QSSSelectorFragment::CHILD);
+    return append(fragment, SelectorElement::CHILD);
 }
 
-QSSSelector &QSSSelector::descendant(const QSSSelectorFragment &fragment)
+qss::Selector& qss::Selector::descendant(const SelectorElement &fragment)
 {
-    return append(fragment, QSSSelectorFragment::DESCENDANT);
+    return append(fragment, SelectorElement::DESCENDANT);
 }
 
-QSSSelector &QSSSelector::descendant(const QString &fragment)
+qss::Selector& qss::Selector::descendant(const QString &fragment)
 {
-    return append(fragment, QSSSelectorFragment::DESCENDANT);
+    return append(fragment, SelectorElement::DESCENDANT);
 }
 
-QSSSelector &QSSSelector::generalSibling(const QSSSelectorFragment &fragment)
+qss::Selector& qss::Selector::generalSibling(const SelectorElement &fragment)
 {
-    return append(fragment, QSSSelectorFragment::GENERAL_SIBLING);
+    return append(fragment, SelectorElement::GENERAL_SIBLING);
 }
 
-QSSSelector &QSSSelector::generalSibling(const QString &fragment)
+qss::Selector& qss::Selector::generalSibling(const QString &fragment)
 {
-    return append(fragment, QSSSelectorFragment::GENERAL_SIBLING);
+    return append(fragment, SelectorElement::GENERAL_SIBLING);
 }
 
-QSSSelector &QSSSelector::sibling(const QSSSelectorFragment &fragment)
+qss::Selector& qss::Selector::sibling(const SelectorElement &fragment)
 {
-    return append(fragment, QSSSelectorFragment::SIBLING);
+    return append(fragment, SelectorElement::SIBLING);
 }
 
-QSSSelector &QSSSelector::sibling(const QString &fragment)
+qss::Selector& qss::Selector::sibling(const QString &fragment)
 {
-    return append(fragment, QSSSelectorFragment::SIBLING);
+    return append(fragment, SelectorElement::SIBLING);
 }
 
-QSSSelector &QSSSelector::append(const QString &fragment, QSSSelectorFragment::PositionType type)
+qss::Selector& qss::Selector::append(const QString &fragment, SelectorElement::PositionType type)
 {
     m_fragments.emplace_back(fragment);
     m_fragments.back().m_position = type;
     return *this;
 }
 
-QSSSelector &QSSSelector::append(const QSSSelectorFragment &fragment, QSSSelectorFragment::PositionType type)
+qss::Selector& qss::Selector::append(const SelectorElement &fragment, SelectorElement::PositionType type)
 {
     m_fragments.push_back(fragment);
     m_fragments.back().m_position = type;
     return *this;
 }
 
-void QSSSelector::parse(const QString &selector)
+void qss::Selector::parse(const QString &selector)
 {
-    auto addFragment = [this](const QStringList& list, int index, QSSSelectorFragment& fragment, QSSSelectorFragment::PositionType pos)
+    auto addFragment = [this](const QStringList& list, int index, SelectorElement& fragment, SelectorElement::PositionType pos)
     {
         fragment.parse(list[index]);
         fragment.m_position = pos;
@@ -82,12 +82,12 @@ void QSSSelector::parse(const QString &selector)
 
         QRegExp regex("`+");
         auto parts = str.split(regex, QString::SkipEmptyParts);
-        QSSSelectorFragment select;
-        addFragment(parts, 0, select, QSSSelectorFragment::PARENT);
+        SelectorElement select;
+        addFragment(parts, 0, select, SelectorElement::PARENT);
 
         for (int i = 1; i < parts.size();)
         {
-            QSSSelectorFragment select;
+            SelectorElement select;
 
             if (Combinators.count(parts[i]) != 0)
             {
@@ -98,24 +98,24 @@ void QSSSelector::parse(const QString &selector)
                 }
                 else
                 {
-                    throw QSSException{ QSSException::SELECTOR_INVALID, parts[i] };
+                    throw Exception{ Exception::SELECTOR_INVALID, parts[i] };
                 }
             }
-            else if (QSSDelimiters.at(QSS_BLOCK_START_DELIMITER) == parts[i].trimmed())
+            else if (Delimiters.at(QSS_BLOCK_START_DELIMITER) == parts[i].trimmed())
             {
                 i++;
                 continue;
             }
             else
             {
-                addFragment(parts, i, select, QSSSelectorFragment::DESCENDANT);
+                addFragment(parts, i, select, SelectorElement::DESCENDANT);
                 i++;
             }
         }
     }
 }
 
-QString QSSSelector::toString() const
+QString qss::Selector::toString() const
 {
     QString result;
 
@@ -132,12 +132,12 @@ QString QSSSelector::toString() const
     return result;
 }
 
-bool operator==(const QSSSelector &lhs, const QSSSelector &rhs)
+bool qss::operator==(const Selector &lhs, const Selector &rhs)
 {
     return lhs.toString() == rhs.toString();
 }
 
-void QSSSelector::preProcess(QString &str)
+void qss::Selector::preProcess(QString &str)
 {
     int quotes = str[0] == '"';
 
@@ -152,8 +152,8 @@ void QSSSelector::preProcess(QString &str)
     }
 }
 
-const std::unordered_map<QString, QSSSelectorFragment::PositionType, QStringHasher> QSSSelector::Combinators {
-    { ">", QSSSelectorFragment::CHILD }, { "~", QSSSelectorFragment::SIBLING },
-    { "+", QSSSelectorFragment::GENERAL_SIBLING }, { " ", QSSSelectorFragment::DESCENDANT },
-    { ",", QSSSelectorFragment::ADJACENT }
+const std::unordered_map<QString, qss::SelectorElement::PositionType, qss::QStringHasher> qss::Selector::Combinators {
+    { ">", SelectorElement::CHILD }, { "~", SelectorElement::SIBLING },
+    { "+", SelectorElement::GENERAL_SIBLING }, { " ", SelectorElement::DESCENDANT },
+    { ",", SelectorElement::ADJACENT }
 };

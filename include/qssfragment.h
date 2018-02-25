@@ -2,42 +2,45 @@
 #define QSSFRAGMENT_H
 
 #include "qssselector.h"
-#include "qssblock.h"
+#include "qsspropertyblock.h"
 
-class QSSFragment : public QSSBase
+namespace qss
 {
-public:
+    class Fragment : public IParseable
+    {
+    public:
 
-    QSSFragment() {}
-    QSSFragment(const QString& str);
-    QSSFragment& operator=(const QSSFragment& fragment);
+        Fragment() {}
+        Fragment(const QString& str);
+        Fragment& operator=(const Fragment& fragment);
 
-    QSSFragment& select(const QSSSelector& selector);
-    QSSFragment& select(const QString& selector);
-    QSSFragment& add(const QSSBlock& block);
-    QSSFragment& add(const QString& block);
-    QSSFragment& add(const QStringPairs& block);
-    QSSFragment& add(const QStringPair& param);
-    QSSFragment& add(const QString& key, const QString& val);
-    QSSFragment& enableParam(const QString& key, bool enable = false);
-    QSSFragment& remove(const QString& name);
-    QSSFragment& remove(const std::vector<QString>& names);
+        Fragment& select(const Selector& selector);
+        Fragment& select(const QString& selector);
+        Fragment& add(const PropertyBlock& block);
+        Fragment& add(const QString& block);
+        Fragment& add(const QStringPairs& block);
+        Fragment& add(const QStringPair& param);
+        Fragment& add(const QString& key, const QString& val);
+        Fragment& enableParam(const QString& key, bool enable = false);
+        Fragment& remove(const QString& name);
+        Fragment& remove(const std::vector<QString>& names);
 
-    const QSSSelector& selector() const noexcept { return m_selector; }
-    const QSSBlock& block() const noexcept { return m_block; }
+        const Selector& selector() const noexcept { return m_selector; }
+        const PropertyBlock& block() const noexcept { return m_block; }
 
-    QSSSelector& selector() noexcept { return m_selector; }
-    QSSBlock& block() noexcept { return m_block; }
+        Selector& selector() noexcept { return m_selector; }
+        PropertyBlock& block() noexcept { return m_block; }
 
-    void    parse(const QString& input);
-    QString toString() const;
+        void    parse(const QString& input);
+        QString toString() const;
 
-    friend bool operator==(const QSSFragment& lhs, const QSSFragment& rhs);
+        friend bool operator==(const Fragment& lhs, const Fragment& rhs);
 
-private:
+    private:
 
-    QSSSelector m_selector;
-    QSSBlock    m_block;
-};
+        Selector m_selector;
+        PropertyBlock    m_block;
+    };
+}
 
 #endif // QSSFRAGMENT_H
