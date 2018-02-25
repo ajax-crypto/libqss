@@ -248,7 +248,7 @@ void QSSSelectorFragment::extractNameAndSelector(const QString &str)
     }
     else if (select.size() > 2)
     {
-        throw QSSException{ QSSException::MULTIPLE_NAMES, str };
+        throw QSSException{ QSSException::MULTIPLE_IDS, str };
     }
 }
 

@@ -13,7 +13,7 @@ public:
         BLOCK_PARAM_INVALID,
         SELECTOR_INVALID,
         BLOCK_BRACKETS_INVALID,
-        MULTIPLE_NAMES,
+        MULTIPLE_IDS,
         ILL_FORMED_HEADER_PARAM
     };
 
