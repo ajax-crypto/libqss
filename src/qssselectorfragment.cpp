@@ -8,16 +8,16 @@ QSSSelectorFragment::QSSSelectorFragment(const QString & str)
 QSSSelectorFragment &QSSSelectorFragment::operator=(const QSSSelectorFragment &fragment)
 {
     m_psuedoClass = fragment.m_psuedoClass;
-    m_selector = fragment.m_selector;
-    m_params = fragment.m_params;
     m_name = fragment.m_name;
+    m_params = fragment.m_params;
+    m_id = fragment.m_id;
     m_position = fragment.m_position;
     return *this;
 }
 
 QSSSelectorFragment &QSSSelectorFragment::select(const QString &sel)
 {
-    m_selector = sel.trimmed();
+    m_name = sel.trimmed();
     return *this;
 }
 
@@ -50,7 +50,7 @@ QSSSelectorFragment &QSSSelectorFragment::when(const QString &pcl)
 
 QSSSelectorFragment &QSSSelectorFragment::name(const QString &str)
 {
-    m_name = str.trimmed();
+    m_id = str.trimmed();
     return *this;
 }
 
@@ -70,14 +70,14 @@ QString QSSSelectorFragment::toString() const
 {
     QString result;
 
-    if (m_selector.size() > 0)
-    {
-        result += m_position != PARENT ? Combinators.at(m_position) + " " + m_selector : m_selector;
-    }
-
     if (m_name.size() > 0)
     {
-        result += QSSDelimiters.at(QSS_NAME_DELIMITER) + m_name;
+        result += m_position != PARENT ? Combinators.at(m_position) + " " + m_name : m_name;
+    }
+
+    if (m_id.size() > 0)
+    {
+        result += QSSDelimiters.at(QSS_NAME_DELIMITER) + m_id;
     }
 
     for (const auto& cl : m_classes)
@@ -136,12 +136,12 @@ bool QSSSelectorFragment::isGeneralizedFrom(const QSSSelectorFragment &fragment)
         }
     }
 
-    if (!m_name.isEmpty() && fragment.m_name != m_name)
+    if (!m_id.isEmpty() && fragment.m_id != m_id)
     {
         return false;
     }
 
-    if (!m_selector.isEmpty() && fragment.m_selector != m_selector)
+    if (!m_name.isEmpty() && fragment.m_name != m_name)
     {
         return false;
     }
@@ -234,12 +234,12 @@ QString QSSSelectorFragment::extractParams(const QString &str)
 void QSSSelectorFragment::extractNameAndSelector(const QString &str)
 {
     auto select = str.split(QSSDelimiters.at(QSS_NAME_DELIMITER));
-    m_selector = select[0];
+    m_name = select[0];
 
     if (select.size() == 2)
     {
         auto parts = select[1].split(QSSDelimiters.at(QSS_CLASS_DELIMITER), QString::SkipEmptyParts);
-        m_name = parts[0].trimmed();
+        m_id = parts[0].trimmed();
 
         for (auto i = 1; i < parts.size(); ++i)
         {

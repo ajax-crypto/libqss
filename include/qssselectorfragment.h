@@ -28,10 +28,10 @@ public:
     QString toString() const;
     bool    isGeneralizedFrom(const QSSSelectorFragment& fragment) const;
     bool    isSpecificThan(const QSSSelectorFragment& fragment) const;
-    QString name() const { return m_name; }
+    QString id() const { return m_id; }
     QString psuedoClass() const { return m_psuedoClass; }
     QString subControl() const { return m_subControl; }
-    QString selector() const { return m_selector; }
+    QString name() const { return m_name; }
     QString value(const QString& key) const;
 
     PositionType position() const noexcept { return m_position; }
@@ -54,11 +54,11 @@ private:
     QString extractParams(const QString& str);
     void    extractNameAndSelector(const QString& str);
 
-    QString      m_selector;
     QString      m_name;
+    QString      m_id;
     QString      m_subControl;
     QString      m_psuedoClass;
-    QStringMap m_params;
+    QStringMap   m_params;
     PositionType m_position = PARENT;
     QStringList  m_classes;
 };

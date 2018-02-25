@@ -15,8 +15,8 @@ void TestQSSParts()
     const auto& block = fragment.block();
     
     RESULTV("Selector count", fragment.selector().fragmentCount(), 1);
-    RESULTSTR("Selector ID", selector.name(), "id");
-    RESULTSTR("Selector Name", selector.selector(), "select");
+    RESULTSTR("Selector ID", selector.id(), "id");
+    RESULTSTR("Selector Name", selector.name(), "select");
     RESULTSTR("Selector Subcontrol", selector.subControl(), "sub-ctrl");
     RESULTSTR("Selector Pseudo class", selector.psuedoClass(), "psuedo");
     RESULTV("Selector class count", selector.classCount(), 2);
@@ -68,8 +68,6 @@ void TestQSSParse()
 
     manual.add("border", "1px solid black");
     manual.add("color", "red");
-
-    LOG("QSS: " << fragment.toString());
     LOG("Passed: " << (QString::compare(fragment.toString(), manual.toString()) == 0));
 }
 
