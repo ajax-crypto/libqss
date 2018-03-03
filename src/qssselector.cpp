@@ -11,42 +11,42 @@ qss::Selector& qss::Selector::operator=(const Selector &selector)
     return *this;
 }
 
-qss::Selector& qss::Selector::child(const SelectorElement &fragment)
+qss::Selector& qss::Selector::addChild(const SelectorElement &fragment)
 {
     return append(fragment, SelectorElement::CHILD);
 }
 
-qss::Selector& qss::Selector::child(const QString &fragment)
+qss::Selector& qss::Selector::addChild(const QString &fragment)
 {
     return append(fragment, SelectorElement::CHILD);
 }
 
-qss::Selector& qss::Selector::descendant(const SelectorElement &fragment)
+qss::Selector& qss::Selector::addDescendant(const SelectorElement &fragment)
 {
     return append(fragment, SelectorElement::DESCENDANT);
 }
 
-qss::Selector& qss::Selector::descendant(const QString &fragment)
+qss::Selector& qss::Selector::addDescendant(const QString &fragment)
 {
     return append(fragment, SelectorElement::DESCENDANT);
 }
 
-qss::Selector& qss::Selector::generalSibling(const SelectorElement &fragment)
+qss::Selector& qss::Selector::addGeneralSibling(const SelectorElement &fragment)
 {
     return append(fragment, SelectorElement::GENERAL_SIBLING);
 }
 
-qss::Selector& qss::Selector::generalSibling(const QString &fragment)
+qss::Selector& qss::Selector::addGeneralSibling(const QString &fragment)
 {
     return append(fragment, SelectorElement::GENERAL_SIBLING);
 }
 
-qss::Selector& qss::Selector::sibling(const SelectorElement &fragment)
+qss::Selector& qss::Selector::addSibling(const SelectorElement &fragment)
 {
     return append(fragment, SelectorElement::SIBLING);
 }
 
-qss::Selector& qss::Selector::sibling(const QString &fragment)
+qss::Selector& qss::Selector::addSibling(const QString &fragment)
 {
     return append(fragment, SelectorElement::SIBLING);
 }

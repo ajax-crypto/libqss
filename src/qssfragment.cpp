@@ -24,33 +24,33 @@ qss::Fragment& qss::Fragment::select(const QString &selector)
     return *this;
 }
 
-qss::Fragment& qss::Fragment::add(const PropertyBlock& block)
+qss::Fragment& qss::Fragment::addBlock(const PropertyBlock& block)
 {
     m_block += block;
     return *this;
 }
 
-qss::Fragment& qss::Fragment::add(const QString &block)
+qss::Fragment& qss::Fragment::addBlock(const QString &block)
 {
     m_block += block;
     return *this;
 }
 
-qss::Fragment& qss::Fragment::add(const QStringPairs &block)
+qss::Fragment& qss::Fragment::addBlock(const QStringPairs &block)
 {
-    m_block.param(block);
+    m_block.addParam(block);
     return *this;
 }
 
-qss::Fragment& qss::Fragment::add(const QStringPair &param)
+qss::Fragment& qss::Fragment::addParam(const QStringPair &param)
 {
-    m_block.param(param.first, param.second);
+    m_block.addParam(param.first, param.second);
     return *this;
 }
 
-qss::Fragment& qss::Fragment::add(const QString &key, const QString &val)
+qss::Fragment& qss::Fragment::addParam(const QString &key, const QString &val)
 {
-    m_block.param(key, val);
+    m_block.addParam(key, val);
     return *this;
 }
 

@@ -16,14 +16,14 @@ namespace qss
         Selector(const QString& str);
         Selector& operator=(const Selector& selector);
 
-        Selector& child(const SelectorElement& fragment);
-        Selector& child(const QString& fragment);
-        Selector& descendant(const SelectorElement& fragment);
-        Selector& descendant(const QString& fragment);
-        Selector& generalSibling(const SelectorElement& fragment);
-        Selector& generalSibling(const QString& fragment);
-        Selector& sibling(const SelectorElement& fragment);
-        Selector& sibling(const QString& fragment);
+        Selector& addChild(const SelectorElement& fragment);
+        Selector& addChild(const QString& fragment);
+        Selector& addDescendant(const SelectorElement& fragment);
+        Selector& addDescendant(const QString& fragment);
+        Selector& addGeneralSibling(const SelectorElement& fragment);
+        Selector& addGeneralSibling(const QString& fragment);
+        Selector& addSibling(const SelectorElement& fragment);
+        Selector& addSibling(const QString& fragment);
         Selector& append(const QString& fragment, SelectorElement::PositionType type);
         Selector& append(const SelectorElement& fragment, SelectorElement::PositionType type);
 
