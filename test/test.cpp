@@ -58,16 +58,16 @@ void TestQSSParse()
             "}";
 
     qss::Fragment fragment{test1};
-    fragment.add("color", "red").enableParam("background-color", false);
+    fragment.addParam("color", "red").enableParam("background-color", false);
 
     qss::Fragment manual;
     manual.selector()
             .append("#parent", qss::SelectorElement::PARENT)
-            .descendant(qss::SelectorElement().select("name").on("prop", "val ff ").on("aaa", "bb b").sub("sub-control").when("hover"))
-            .sibling("QLabel#child");
+            .addDescendant(qss::SelectorElement().select("name").on("prop", "val ff ").on("aaa", "bb b").sub("sub-control").when("hover"))
+            .addSibling("QLabel#child");
 
-    manual.add("border", "1px solid black");
-    manual.add("color", "red");
+    manual.addParam("border", "1px solid black");
+    manual.addParam("color", "red");
     LOG("Passed: " << (QString::compare(fragment.toString(), manual.toString()) == 0));
 }
 
@@ -90,3 +90,5 @@ int main(int argc, char *argv[])
 
     return a.exec();
 }
+
+
