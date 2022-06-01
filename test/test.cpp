@@ -1,6 +1,6 @@
 #include <QCoreApplication>
 
-#include "include/qssdocument.h"
+#include "qssdocument.h"
 
 #define RESULTV(A, B, V) LOG(A << " should be: " << #V << " | Test pass status: " << (B == V));
 #define RESULTSTR(A, B, V) LOG(A << " should be: " << V << " | Test pass status: " << (B == V));
@@ -88,7 +88,7 @@ int main(int argc, char *argv[])
         std::cout << except.what();
     }
 
-    return a.exec();
+    return 0;
 }
 
 
