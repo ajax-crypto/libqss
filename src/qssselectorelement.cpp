@@ -235,7 +235,7 @@ void qss::SelectorElement::extractNameAndSelector(const QString &str)
 {
     auto select = str.split(Delimiters.at(QSS_ID_DELIMITER));
     auto parts = select[0].split(Delimiters.at(QSS_CLASS_DELIMITER), Qt::SkipEmptyParts);
-    m_name = parts[0].trimmed();
+    if (parts.size()) m_name = parts[0].trimmed();
 
     for (auto i = 1; i < parts.size(); ++i)
     {
