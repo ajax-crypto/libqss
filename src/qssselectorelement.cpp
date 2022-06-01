@@ -202,7 +202,7 @@ QString qss::SelectorElement::extractSubControlAndPsuedoClass(const QString &str
 
 QString qss::SelectorElement::extractParams(const QString &str)
 {
-    auto parts = str.split(Delimiters.at(QSS_SELECT_PARAM_START_DELIMITER), QString::SkipEmptyParts);
+    auto parts = str.split(Delimiters.at(QSS_SELECT_PARAM_START_DELIMITER), Qt::SkipEmptyParts);
 
     if (parts.size() == 1 && str.indexOf(Delimiters.at(QSS_SELECT_PARAM_START_DELIMITER)) != -1)
     {
@@ -234,7 +234,7 @@ QString qss::SelectorElement::extractParams(const QString &str)
 void qss::SelectorElement::extractNameAndSelector(const QString &str)
 {
     auto select = str.split(Delimiters.at(QSS_ID_DELIMITER));
-    auto parts = select[0].split(Delimiters.at(QSS_CLASS_DELIMITER), QString::SkipEmptyParts);
+    auto parts = select[0].split(Delimiters.at(QSS_CLASS_DELIMITER), Qt::SkipEmptyParts);
     m_name = parts[0].trimmed();
 
     for (auto i = 1; i < parts.size(); ++i)
@@ -244,7 +244,7 @@ void qss::SelectorElement::extractNameAndSelector(const QString &str)
 
     if (select.size() == 2)
     {
-        parts = select[1].split(Delimiters.at(QSS_CLASS_DELIMITER), QString::SkipEmptyParts);
+        parts = select[1].split(Delimiters.at(QSS_CLASS_DELIMITER), Qt::SkipEmptyParts);
         m_id = parts[0].trimmed();
 
         for (auto i = 1; i < parts.size(); ++i)

@@ -98,11 +98,11 @@ void qss::PropertyBlock::parse(const QString &input)
 
     if (str.size() > 0)
     {
-        auto parts = str.split(Delimiters.at(QSS_STATEMENT_END_DELIMITER), QString::SplitBehavior::SkipEmptyParts);
+        auto parts = str.split(Delimiters.at(QSS_STATEMENT_END_DELIMITER), Qt::SkipEmptyParts);
 
         for (auto const& part : parts)
         {
-            auto line = part.split(Delimiters.at(QSS_PSEUDO_CLASS_DELIMITER), QString::SplitBehavior::SkipEmptyParts);
+            auto line = part.split(Delimiters.at(QSS_PSEUDO_CLASS_DELIMITER), Qt::SkipEmptyParts);
 
             if (line.size() == 2)
             {

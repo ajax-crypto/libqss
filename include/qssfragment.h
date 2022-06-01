@@ -41,6 +41,8 @@ namespace qss
         Selector m_selector;
         PropertyBlock    m_block;
     };
+
+    bool operator==(const Fragment& lhs, const Fragment& rhs);
 }
 
 #endif // QSSFRAGMENT_H

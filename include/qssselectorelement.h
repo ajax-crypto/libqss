@@ -64,6 +64,8 @@ namespace qss
         PositionType m_position = PARENT;
         QStringList  m_classes;
     };
+
+    bool operator==(const SelectorElement& lhs, const SelectorElement& rhs);
 }
 
 #endif // QSSSELECTORFRAGMENT_H

@@ -43,6 +43,10 @@ namespace qss
 
         PropertyMap m_params;
     };
+
+    bool operator==(const PropertyBlock& lhs, const PropertyBlock& rhs);
+    
+    PropertyBlock operator+(const PropertyBlock& lhs, const PropertyBlock& rhs);
 }
 
 #endif // QSSBLOCK_H
