@@ -228,7 +228,8 @@ QString qss::SelectorElement::extractParams(const QString &str)
         }
     }
 
-    return parts[0];
+    // TODO Is this legitimate or a temporary workaround?
+    return parts.size() > 0 ? parts[0] : "";
 }
 
 void qss::SelectorElement::extractNameAndSelector(const QString &str)
