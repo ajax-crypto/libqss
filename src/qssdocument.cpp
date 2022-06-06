@@ -141,7 +141,7 @@ void qss::Document::parse(const QString& input)
         {
             if (input.at(i) == Delimiters.at(QSS_BLOCK_END_DELIMITER))
             {
-                m_fragments.emplace_back(fragment, true);
+                m_fragments.emplace_back(std::make_pair(fragment, true));
                 fragment.clear();
             }
         }
