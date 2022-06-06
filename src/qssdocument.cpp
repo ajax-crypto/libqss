@@ -1,8 +1,18 @@
 #include "../include/qssdocument.h"
 
+#include <algorithm>
+#include <regex>
+
 qss::Document::Document(const QString &qss)
 {
-    parse(qss);
+    std::regex regRemoveComments(R"((//.*?$|/\*[\S\s]*?\*/)|(\'(?:\\.|[^\\\'])*\'|"(?:\\.|[^\\"])*"))");
+
+    std::string str = qss.toStdString();
+    std::string strNoComments = std::regex_replace(str, regRemoveComments, "$2");
+    std::replace(strNoComments.begin(), strNoComments.end(), '\n', ' ');
+
+    QString qssNoComments = QString::fromStdString(strNoComments);
+    parse(qssNoComments);
 }
 
 qss::Document& qss::Document::addFragment(const Fragment& fragment, bool enabled)
