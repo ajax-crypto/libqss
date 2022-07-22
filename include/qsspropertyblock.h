@@ -6,7 +6,7 @@
 
 namespace qss
 {
-    class PropertyBlock : public IParseable
+    class QSS_API PropertyBlock : public IParseable
     {
     public:
 

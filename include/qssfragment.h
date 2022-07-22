@@ -6,7 +6,7 @@
 
 namespace qss
 {
-    class Fragment : public IParseable
+    class QSS_API Fragment : public IParseable
     {
     public:
 

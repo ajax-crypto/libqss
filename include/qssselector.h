@@ -5,7 +5,7 @@
 
 namespace qss
 {
-    class Selector : public IParseable
+    class QSS_API Selector : public IParseable
     {
     public:
 
