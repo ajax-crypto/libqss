@@ -7,7 +7,7 @@
 
 namespace qss
 {
-    class Document : public IParseable
+    class QSS_API Document : public IParseable
     {
     public:
 

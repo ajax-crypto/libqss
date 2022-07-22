@@ -5,7 +5,7 @@
 
 namespace qss
 {
-    class Exception
+    class QSS_API Exception
     {
     public:
 

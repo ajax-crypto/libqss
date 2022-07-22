@@ -11,6 +11,21 @@
 #include <string>
 #include <type_traits>
 
+#ifdef _WIN32
+#ifdef qss_EXPORTS
+#define QSS_API __declspec(dllexport)
+#else
+#ifndef QSS_STATIC
+#define QSS_API __declspec(dllimport)
+#else
+#define QSS_API
+#endif
+#endif
+#else // _WIN32
+#define QSS_API
+#endif // _WIN32
+
+
 #define LOG(X)  { std::cout << qss::tab(2) << X << std::endl; }
 #define START() { std::cout << qss::tab(1) << "In [" __FUNCTION__ << "]" << std::endl; }
 #define END() { qss::tab(0); std::cout << qss::tab(2) << "Out [" __FUNCTION__ << "]" << std::endl; }
@@ -84,9 +99,9 @@ namespace qss
         return QString{ "\"%1\"" }.arg(input);
     }
 
-    std::ostream& operator<<(std::ostream& stream, const QString& str);
+    QSS_API std::ostream& operator<<(std::ostream& stream, const QString& str);
     
-    std::ostream& operator<<(std::ostream& stream, const QStringList& list);
+    QSS_API std::ostream& operator<<(std::ostream& stream, const QStringList& list);
 }
 
 #endif

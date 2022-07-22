@@ -1,6 +1,8 @@
 #include <QCoreApplication>
+#include <QString>
 
 #include "qssdocument.h"
+
 
 #define RESULTV(A, B, V) LOG(A << " should be: " << #V << " | Test pass status: " << (B == V));
 #define RESULTSTR(A, B, V) LOG(A << " should be: " << V << " | Test pass status: " << (B == V));
