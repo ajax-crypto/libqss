@@ -7,7 +7,7 @@
 
 namespace qss
 {
-    class Document : public IParseable
+    class QSS_API Document : public IParseable
     {
     public:
 
@@ -56,6 +56,8 @@ namespace qss
 
         std::deque<QSSFragmentPair> m_fragments;
     };
+
+    Document operator+(const Document& lhs, const Document& rhs);
 }
 
 #endif // QSSTEXT_H

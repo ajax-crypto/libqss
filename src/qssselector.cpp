@@ -1,5 +1,7 @@
 #include "../include/qssselector.h"
 
+#include <QRegularExpression>
+
 qss::Selector::Selector(const QString & str)
 {
     parse(str);
@@ -80,8 +82,8 @@ void qss::Selector::parse(const QString &selector)
     {
         preProcess(str);
 
-        QRegExp regex("`+");
-        auto parts = str.split(regex, QString::SkipEmptyParts);
+        QRegularExpression regex("`+");
+        auto parts = str.split(regex, Qt::SkipEmptyParts);
         SelectorElement select;
         addFragment(parts, 0, select, SelectorElement::PARENT);
 

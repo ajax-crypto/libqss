@@ -98,13 +98,16 @@ void qss::PropertyBlock::parse(const QString &input)
 
     if (str.size() > 0)
     {
-        auto parts = str.split(Delimiters.at(QSS_STATEMENT_END_DELIMITER), QString::SplitBehavior::SkipEmptyParts);
+        auto parts = str.split(Delimiters.at(QSS_STATEMENT_END_DELIMITER), Qt::SkipEmptyParts);
 
         for (auto const& part : parts)
         {
-            auto line = part.split(Delimiters.at(QSS_PSEUDO_CLASS_DELIMITER), QString::SplitBehavior::SkipEmptyParts);
+            auto line = part.split(Delimiters.at(QSS_PSEUDO_CLASS_DELIMITER), Qt::SkipEmptyParts);
 
-            if (line.size() == 2)
+            // Allow more than 2 types in split, because the property value may
+            // contain further delimiters inside quotes. This is not a solution,
+            // but only a workaround: a full parsing of quoted content must be done instead.
+            if (line.size() >= 2)
             {
                 auto key = line[0].trimmed();
                 auto value = line[1].trimmed();

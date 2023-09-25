@@ -5,7 +5,7 @@
 
 namespace qss
 {
-    class Selector : public IParseable
+    class QSS_API Selector : public IParseable
     {
     public:
 
@@ -58,6 +58,8 @@ namespace qss
 
         std::deque<SelectorElement> m_fragments;
     };
+
+    bool operator==(const Selector& lhs, const Selector& rhs);
 }
 
 #endif // QSSSELECTOR_H

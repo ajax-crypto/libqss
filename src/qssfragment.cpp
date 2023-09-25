@@ -1,8 +1,8 @@
 #include "../include/qssfragment.h"
 
-qss::Fragment::Fragment(const QString & str)
+qss::Fragment::Fragment(const QString & input)
 {
-    parse(str);
+    parse(input);
 }
 
 qss::Fragment& qss::Fragment::operator=(const Fragment &fragment)
@@ -78,15 +78,15 @@ void qss::Fragment::parse(const QString &input)
 
     if (str.size() > 0)
     {
-        auto start = input.indexOf(Delimiters.at(QSS_BLOCK_START_DELIMITER));
-        auto end = input.indexOf(Delimiters.at(QSS_BLOCK_END_DELIMITER));
+        auto start = str.indexOf(Delimiters.at(QSS_BLOCK_START_DELIMITER));
+        auto end = str.indexOf(Delimiters.at(QSS_BLOCK_END_DELIMITER));
 
         if ((end - start) > 0)
         {
             QString header = str, body = str;
             m_selector.parse(header.remove(start, header.size()).trimmed());
+            body = body.left(end);
             body.remove(0, start + 1);
-            body.remove(body.size() - 1, 1);
             m_block.parse(body.trimmed());
         }
         else

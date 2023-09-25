@@ -6,7 +6,7 @@
 
 namespace qss
 {
-    class Fragment : public IParseable
+    class QSS_API Fragment : public IParseable
     {
     public:
 
@@ -41,6 +41,8 @@ namespace qss
         Selector m_selector;
         PropertyBlock    m_block;
     };
+
+    bool operator==(const Fragment& lhs, const Fragment& rhs);
 }
 
 #endif // QSSFRAGMENT_H

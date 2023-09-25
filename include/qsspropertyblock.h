@@ -6,7 +6,7 @@
 
 namespace qss
 {
-    class PropertyBlock : public IParseable
+    class QSS_API PropertyBlock : public IParseable
     {
     public:
 
@@ -43,6 +43,10 @@ namespace qss
 
         PropertyMap m_params;
     };
+
+    bool operator==(const PropertyBlock& lhs, const PropertyBlock& rhs);
+    
+    PropertyBlock operator+(const PropertyBlock& lhs, const PropertyBlock& rhs);
 }
 
 #endif // QSSBLOCK_H

@@ -6,7 +6,7 @@
 
 namespace qss
 {
-    class SelectorElement : public IParseable
+    class QSS_API SelectorElement : public IParseable
     {
     public:
 
@@ -64,6 +64,8 @@ namespace qss
         PositionType m_position = PARENT;
         QStringList  m_classes;
     };
+
+    bool operator==(const SelectorElement& lhs, const SelectorElement& rhs);
 }
 
 #endif // QSSSELECTORFRAGMENT_H
